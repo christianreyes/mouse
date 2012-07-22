@@ -64,9 +64,10 @@ pt.y    = y;
 int i = 0;
 for (i = 0; i < clicks; i++ )
 {
-CGPostMouseEvent( pt, 1, 1, 1 );
-CGPostMouseEvent( pt, 1, 1, 0 );
 
+//CGPostMouseEvent( pt, 1, 1, 1 );
+CGPostMouseEvent( pt, 1, 1, 0
+ );
 }
 
 [pool release];

@@ -7,7 +7,7 @@ var express = require('express')
   , routes = require('./routes')
 
 var app   = module.exports = express.createServer();
-var io    = require('socket.io').listen(app);
+var io    = require('socket.io').listen(app, {log: false});
 var fs    = require('fs');
 
 // Configuration
@@ -45,14 +45,21 @@ app.listen(port);
 var x = 500;
 var y = 500;
 
+var mouse_event = -1;
+
 io.sockets.on('connection', function (socket) {
   socket.on('move', function (data) {
     //console.log(data);
     io.sockets.emit('movedata', data);
-    x += (data.x * 10);
-    y += (data.y * 10);
+    x += (data.x * 20);
+    y += (data.y * 20);
     
-    exec("./click -x " + x + " -y " + y + " -click 0 -interval 1", puts);
+    //if(mouse_event == -1){
+    //  mouse_event = setTimeout(function(){
+        exec("./click -x " + x + " -y " + y + " -click 0 -interval 1", puts); 
+    //    mouse_event = -1;
+    //  }, 25); 
+    //}
   });
 });
 
