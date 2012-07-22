@@ -45,7 +45,7 @@ $(function(){
   });
   
   $('#left').click(function(){
-    socket.emit("click");
+    socket.emit("click", null);
     return false;
   });
   

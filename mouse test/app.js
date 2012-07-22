@@ -57,7 +57,7 @@ var allowed = true;
 
 io.sockets.on('connection', function (socket) {
   socket.on("click", function(){
-    exec("./click -x " + x  + " -y " + y + " -click 1 -interval 1", puts); 
+    exec("./click2 -x " + x  + " -y " + y + " -click 1 -interval 1", puts); 
     //return false;
   });
   

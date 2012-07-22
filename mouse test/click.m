@@ -64,6 +64,7 @@ if(clicks == 0){
   CGPostMouseEvent( pt, 1, 1, 0);  
 }
 if(clicks == 1){
+  printf("got here");
   CGPostMouseEvent( pt, 1, 1, 1 );  
   CGPostMouseEvent( pt, 1, 1, 0);  
 }
