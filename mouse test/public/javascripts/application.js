@@ -36,7 +36,7 @@ $(function(){
   
   //$('#box').css('left', window.width / 2).css('top', window.height / 2);
   
-  $('#startstop').click(function(e){
+  $('#left').click(function(e){
     if(recording){
       recording = false;
       $(this).text("Start");     

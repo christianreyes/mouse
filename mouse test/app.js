@@ -34,14 +34,25 @@ app.configure('production', function(){
 
 app.get('/', routes.index);
 
+var sys = require('util')
+var exec = require('child_process').exec;
+function puts(error, stdout, stderr) { sys.puts(stdout) }
+
 var port = process.env.PORT || 3000;
 
 app.listen(port);
+
+var x = 500;
+var y = 500;
 
 io.sockets.on('connection', function (socket) {
   socket.on('move', function (data) {
     //console.log(data);
     io.sockets.emit('movedata', data);
+    x += (data.x * 10);
+    y += (data.y * 10);
+    
+    exec("./click -x " + x + " -y " + y + " -click 0 -interval 1", puts);
   });
 });
 
