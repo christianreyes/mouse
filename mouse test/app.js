@@ -91,9 +91,14 @@ io.sockets.on('connection', function (socket) {
       allowed = false;
       
       var id = setInterval(function(){
-        x += -1 * data.x * 2
+        x -= data.x * 2
         if(x < 0) x = 0;
-        if(x > 768) x =768;
+        if(x > 1280) x =768;
+        
+        y += data.y * 2
+        if(y < 0) y = 0;
+        if(y > 768) y =768;
+        
         exec("./click -x " + x  + " -y " + y + " -click 0 -interval 1", puts); 
         allowed = true;
       }, 10)

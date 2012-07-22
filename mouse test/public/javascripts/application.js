@@ -71,10 +71,26 @@ $(function(){
 
           //$('body').append($('<div>' + data.x + ',' + data + '</div>'));
           
+          var send = false;
+          
           if(Math.abs(data.x) > .7){
-            data.x = data.x > .7 ? .7 : -.7;
+            //data.x = data.x > .7 ? .7 : -.7;
             allowed = false;
-            socket.emit("move", data)
+            send = true;
+          } else {
+            data.x = 0; 
+          }
+          
+          if(Math.abs(data.y) > .7){
+            //data.y = data.y > .7 ? .7 : -.7;
+            allowed = false;
+            send = true;
+          } else {
+            data.y = 0;
+          }
+          
+          if(send){
+            socket.emit("move", data);
             
             setTimeout(function(){
               allowed = true;
