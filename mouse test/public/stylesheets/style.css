@@ -1,8 +1,16 @@
+* {
+  margin: 0px;
+	padding: 0px;
+}
+
 body {
   min-height: 400px;
   height: 100%;
   font-family: monospace;
   position: relative;
+  margin: 0px;
+	padding: 0px;
+	overflow: hidden;
 }
 
 button {
@@ -21,4 +29,15 @@ button {
   border-radius: 5px;
   background-color: red;
   position: absolute;
+}
+
+@media handheld {
+  .navigation {
+    display: none;
+  }
+}
+
+img {
+	margin: 0px;
+	padding: 0px;
 }

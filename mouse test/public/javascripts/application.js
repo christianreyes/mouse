@@ -4,6 +4,36 @@ $(function(){
   var time_initial;
   var recording = false;
   
+  /*
+  $('#left').ontouchstart = function(){
+    $('img').attr('src', '/images/mouse_leftdown.png');
+  };
+  
+  $('#left').ontouchend = function(){
+    $('img').attr('src', '/images/mouse_off.png');
+  };
+  */
+  
+	$('#left').mousedown(function(){
+		$('img').attr('src', '/images/mouse_leftdown.png');
+		//return false;
+	});
+
+	$('#left').mouseup(function(){
+		$('img').attr('src', '/images/mouse_off.png');
+	  //return false;
+	});
+	
+	$('#right').mousedown(function(){
+		$('img').attr('src', '/images/mouse_rightdown.png');
+		//return false;
+	});
+
+	$('#right').mouseup(function(){
+		$('img').attr('src', '/images/mouse_off.png');
+		//return false;
+	});
+  
   //$('#box').css('left', window.width / 2).css('top', window.height / 2);
   
   $('#startstop').click(function(e){
