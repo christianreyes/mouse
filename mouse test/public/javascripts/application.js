@@ -4,15 +4,11 @@ $(function(){
   var time_initial;
   var recording = false;
   
-  /*
-  $('#left').ontouchstart = function(){
-    $('img').attr('src', '/images/mouse_leftdown.png');
-  };
+  var allowed = false;
   
-  $('#left').ontouchend = function(){
-    $('img').attr('src', '/images/mouse_off.png');
-  };
-  */
+  setTimeout(function(){
+    allowed = true;
+  }, 1000);
   
 	$('#left').mousedown(function(){
 		$('img').attr('src', '/images/mouse_leftdown.png');
@@ -36,7 +32,7 @@ $(function(){
   
   //$('#box').css('left', window.width / 2).css('top', window.height / 2);
   
-  $('#left').click(function(e){
+  $('#right').click(function(e){
     if(recording){
       recording = false;
       $(this).text("Start");     
@@ -48,6 +44,11 @@ $(function(){
     e.preventDefault();
   });
   
+  $('#left').click(function(){
+    socket.emit("click");
+    return false;
+  });
+  
   if (window.DeviceOrientationEvent) {
     
     //$('body').append($('<div>Got here</div>'));
@@ -55,23 +56,32 @@ $(function(){
     window.ondevicemotion = function(event) {
       
       //$('body').append($('<div>' + recording + " " + event.acceleration.x + '</div>'));
-      
-      if(recording){        
-        
-        var date = new Date();
-      
-        var data = {
-          x: event.acceleration.x,
-          y: event.acceleration.y,
-          z: event.acceleration.z,
-          date: date,
-          time: date - time_initial
-        }
-        
-        //$('body').append($('<div>' + data.x + ',' + data + '</div>'));
-        socket.emit('move', data);
+      if(allowed){
+        if(recording){        
+
+          var date = new Date();
+
+          var data = {
+            x: event.acceleration.x,
+            y: event.acceleration.y,
+            z: event.acceleration.z,
+            date: date,
+            time: date - time_initial
+          }
+
+          //$('body').append($('<div>' + data.x + ',' + data + '</div>'));
+          
+          if(Math.abs(data.x) > .7){
+            data.x = data.x > .7 ? .7 : -.7;
+            allowed = false;
+            socket.emit("move", data)
+            
+            setTimeout(function(){
+              allowed = true;
+            }, 600)
+          }
+        }      
       }
-      
     }
   } else {
     $('button').hide();

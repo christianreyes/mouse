@@ -36,10 +36,7 @@ x = ourLoc.x;
 y = ourLoc.y;
 
 }
-if (clicks == 0)
-{
-clicks = 1;
-}
+
 if (interval == 0)
 {
 interval = 1;
@@ -62,13 +59,22 @@ pt.y    = y;
 // then click and release.
 //
 int i = 0;
+
+if(clicks == 0){
+  CGPostMouseEvent( pt, 1, 1, 0);  
+}
+if(clicks == 1){
+  CGPostMouseEvent( pt, 1, 1, 1 );  
+  CGPostMouseEvent( pt, 1, 1, 0);  
+}
+/*
 for (i = 0; i < clicks; i++ )
 {
 
 //CGPostMouseEvent( pt, 1, 1, 1 );
 CGPostMouseEvent( pt, 1, 1, 0
  );
-}
+}*/
 
 [pool release];
 return 0;

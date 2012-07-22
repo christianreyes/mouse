@@ -53,11 +53,20 @@ var y_dir = 0;
 var move_thres = .3;
 var boost = 10;
 
+var allowed = true;
+
 io.sockets.on('connection', function (socket) {
+  socket.on("click", function(){
+    exec("./click -x " + x  + " -y " + y + " -click 1 -interval 1", puts); 
+    //return false;
+  });
+  
   socket.on('move', function (data) {
     //console.log(data);
     io.sockets.emit('movedata', data);
     
+    
+    /*
     if(peak == false && Math.abs(data.x) > peak_thres){
       peak = true;
       x_dir = data.x > peak_thres ? 1 : -1;
@@ -69,11 +78,34 @@ io.sockets.on('connection', function (socket) {
       peak = false;
     }
     
-    console.log(x + " , " + y);
+    
+    
+    */
+    
+    
+    if(allowed){
+      //x += -1 * data.x * 30
+      //console.log(x );
+      //y += data.y * 10
+      //exec("./click -x " + x  + " -y " + y + " -click 0 -interval 1", puts); 
+      allowed = false;
+      
+      var id = setInterval(function(){
+        x += -1 * data.x * 2
+        if(x < 0) x = 0;
+        if(x > 768) x =768;
+        exec("./click -x " + x  + " -y " + y + " -click 0 -interval 1", puts); 
+        allowed = true;
+      }, 10)
+      
+      setTimeout(function(){
+        clearInterval(id);
+      }, 750)
+    }
     
     //if(mouse_event == -1){
     //  mouse_event = setTimeout(function(){
-    exec("./click -x " + x + " -y " + y + " -click 0 -interval 1", puts); 
+    
     //    mouse_event = -1;
     //  }, 25); 
     //}
