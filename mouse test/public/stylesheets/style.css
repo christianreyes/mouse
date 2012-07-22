@@ -21,12 +21,12 @@ button {
 }
 
 #box {
-  width: 10px;
-  height: 10px;
+  width: 20px;
+  height: 20px;
   left: 400px;
   top: 400px;
   display: inline-block;
-  border-radius: 5px;
+  border-radius: 20px;
   background-color: red;
   position: absolute;
 }

@@ -46,17 +46,34 @@ var x = 500;
 var y = 500;
 
 var mouse_event = -1;
+var peak_thres = .5;
+var peak = false;
+var x_dir = 0;
+var y_dir = 0;
+var move_thres = .3;
+var boost = 10;
 
 io.sockets.on('connection', function (socket) {
   socket.on('move', function (data) {
     //console.log(data);
     io.sockets.emit('movedata', data);
-    x += (data.x * 20);
-    y += (data.y * 20);
+    
+    if(peak == false && Math.abs(data.x) > peak_thres){
+      peak = true;
+      x_dir = data.x > peak_thres ? 1 : -1;
+    }
+    
+    if(peak == true && Math.abs(data.x) > move_thres){
+      x += ( -1 * x_dir * Math.abs(data.x) * boost);
+    } else{
+      peak = false;
+    }
+    
+    console.log(x + " , " + y);
     
     //if(mouse_event == -1){
     //  mouse_event = setTimeout(function(){
-        exec("./click -x " + x + " -y " + y + " -click 0 -interval 1", puts); 
+    exec("./click -x " + x + " -y " + y + " -click 0 -interval 1", puts); 
     //    mouse_event = -1;
     //  }, 25); 
     //}

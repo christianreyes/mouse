@@ -81,9 +81,9 @@ $(function(){
     if(!recording){
       //$('body').append($('<div>' + data.x + ',' + data.y + ',' + data.z + ',' + data.time + '</div>')); 
       if(Math.abs(data.x) > 0.05)
-        $('#box').css('left', parseInt($('#box').css('left')) - data.x * 5 + 'px');
+        $('#box').css('left', parseInt($('#box').css('left')) - data.x * 10 + 'px');
       if(Math.abs(data.y) > 0.05)
-        $('#box').css('top', parseInt($('#box').css('top')) + data.y * 5 + 'px');
+        $('#box').css('top', parseInt($('#box').css('top')) + data.y * 10 + 'px');
     }
   });
   
